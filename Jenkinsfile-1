@@ -1,10 +1,16 @@
 pipeline {
-  agent any 
-  stages {
-    stage('Verify version') {
-      steps {
-        sh 'docker run --rm flyway/flyway:10.1.0 version'
-      }
+    agent none
+
+    stages {
+        stage('Run on agent46-ocp') {
+            agent {
+                label 'agent46-ocp'
+            }
+            steps {
+                sh 'docker run --rm flyway/flyway:10.1.0 version'
+            }
+        }
+
+        // Add more stages as needed
     }
-  }
 }
